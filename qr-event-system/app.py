@@ -3,6 +3,7 @@ import random
 import requests
 from datetime import datetime, timedelta
 import sqlite3
+import os
 
 app = Flask(__name__)
 app.secret_key = "secret123"
@@ -15,11 +16,6 @@ EMAILJS_PRIVATE_KEY = "S8ZCy-j38GyIAqvBSFjPU"
 
 otp_store = {}
 
-# -------- SQLITE DATABASE INIT -------- #
-def get_db():
-    conn = sqlite3.connect('database.db')
-    conn.row_factory = sqlite3.Row
-    return conn
 
 # -------- SQLITE DATABASE INIT -------- #
 def get_db():
@@ -200,4 +196,4 @@ def logout():
 
 if __name__ == '__main__':
     # Setting host='0.0.0.0' allows you to access this from your phone on the same WiFi
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=int(os.environ.get("PORT", 10000)))
